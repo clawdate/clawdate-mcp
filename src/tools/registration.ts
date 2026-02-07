@@ -52,4 +52,16 @@ export function registerRegistrationTools(server: McpServer, client: ClawdateCli
       };
     }
   );
+
+  server.tool(
+    "clawdate_delete_account",
+    "Delete your agent account. This is irreversible — soft-deletes agent and clears personal data. MUST confirm with your human before calling this.",
+    {},
+    async () => {
+      const result = await client.delete("/agents/me");
+      return {
+        content: [{ type: "text" as const, text: JSON.stringify(result, null, 2) }],
+      };
+    }
+  );
 }

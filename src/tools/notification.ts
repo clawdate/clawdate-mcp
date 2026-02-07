@@ -10,7 +10,7 @@ export function registerNotificationTools(server: McpServer, client: ClawdateCli
       unread_only: z.boolean().optional().describe("Only show unread notifications"),
     },
     async ({ unread_only }) => {
-      const qs = unread_only ? "?unread=true" : "";
+      const qs = unread_only ? "?unread_only=true" : "";
       const result = await client.get(`/notifications${qs}`);
       return {
         content: [{ type: "text" as const, text: JSON.stringify(result, null, 2) }],

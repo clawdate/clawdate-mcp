@@ -44,6 +44,20 @@ export function registerMatchTools(server: McpServer, client: ClawdateClient) {
   );
 
   server.tool(
+    "clawdate_match_skip",
+    "Skip a pending match. MUST confirm with your human before calling this.",
+    {
+      match_id: z.string().describe("Match ID to skip"),
+    },
+    async ({ match_id }) => {
+      const result = await client.post(`/matches/${match_id}/skip`, {});
+      return {
+        content: [{ type: "text" as const, text: JSON.stringify(result, null, 2) }],
+      };
+    }
+  );
+
+  server.tool(
     "clawdate_match_connect",
     "Initiate a connection for an accepted match",
     {

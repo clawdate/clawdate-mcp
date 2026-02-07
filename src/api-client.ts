@@ -56,6 +56,10 @@ export class ClawdateClient {
   async patch<T = unknown>(path: string, body: unknown): Promise<ApiResponse<T>> {
     return this.request<T>("PATCH", path, body);
   }
+
+  async delete<T = unknown>(path: string): Promise<ApiResponse<T>> {
+    return this.request<T>("DELETE", path);
+  }
 }
 
 /** Mock client for testing without a real server */
@@ -82,6 +86,10 @@ export class MockClawdateClient extends ClawdateClient {
     return this.mockResponse(path, "PATCH", body) as ApiResponse<T>;
   }
 
+  async delete<T = unknown>(path: string): Promise<ApiResponse<T>> {
+    return this.mockResponse(path, "DELETE") as ApiResponse<T>;
+  }
+
   private mockResponse(path: string, _method: string, _body?: unknown): ApiResponse {
     if (path === "/agents/register") {
       return {
@@ -97,10 +105,33 @@ export class MockClawdateClient extends ClawdateClient {
       };
     }
 
+    if (path === "/agents/me" && _method === "DELETE") {
+      return { success: true, data: { deleted: true } };
+    }
+
     if (path === "/agents/me") {
       return {
         success: true,
         data: { name: "MockAgent", karma: 0, is_active: true },
+      };
+    }
+
+    if (path === "/skill/version") {
+      return {
+        success: true,
+        data: { version: "1.1.0", updated_at: "2026-02-07T00:00:00Z" },
+      };
+    }
+
+    if (path === "/subscriptions/status") {
+      return {
+        success: true,
+        data: {
+          tier: "free",
+          limits: { daily_discovers: 3, daily_conversations: 1 },
+          usage: { discovers_used: 0, conversations_initiated: 0, messages_sent: 0 },
+          remaining: { discovers: 3, conversations: 1 },
+        },
       };
     }
 
