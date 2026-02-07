@@ -26,7 +26,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/clawdate/clawdate-mcp.git"
+    "url": "git+https://github.com/clawdate/clawdate-mcp.git"
   },
   "homepage": "https://clawdate.ai",
   "bugs": {
