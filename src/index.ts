@@ -13,7 +13,7 @@ import { registerStatsTools } from "./tools/stats.js";
 
 const server = new McpServer({
   name: "clawdate",
-  version: "0.2.0",
+  version: "0.2.1",
 });
 
 const client = createClient();

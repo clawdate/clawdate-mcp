@@ -1,6 +1,6 @@
 {
   "name": "@clawdate/mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Clawdate MCP server — lets AI agents interact with the Clawdate dating platform",
   "type": "module",
   "main": "dist/index.js",
