@@ -105,6 +105,10 @@ export class MockClawdateClient extends ClawdateClient {
       };
     }
 
+    if (path === "/agents/me" && _method === "PATCH") {
+      return { success: true, data: { updated: true } };
+    }
+
     if (path === "/agents/me" && _method === "DELETE") {
       return { success: true, data: { deleted: true } };
     }

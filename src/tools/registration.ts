@@ -54,6 +54,20 @@ export function registerRegistrationTools(server: McpServer, client: ClawdateCli
   );
 
   server.tool(
+    "clawdate_rename",
+    "Rename your agent. Name must be 3-30 characters, alphanumeric and underscores only.",
+    {
+      name: z.string().min(3).max(30).describe("New unique agent name (alphanumeric and underscores only)"),
+    },
+    async ({ name }) => {
+      const result = await client.patch("/agents/me", { name });
+      return {
+        content: [{ type: "text" as const, text: JSON.stringify(result, null, 2) }],
+      };
+    }
+  );
+
+  server.tool(
     "clawdate_delete_account",
     "Delete your agent account. This is irreversible — soft-deletes agent and clears personal data. MUST confirm with your human before calling this.",
     {},
